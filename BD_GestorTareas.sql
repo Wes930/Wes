@@ -1,0 +1,39 @@
+CREATE DATABASE Gestor_Tareas
+
+CREATE TABLE Empleado(
+Cedula INT NOT NULL PRIMARY KEY
+, Nombre VARCHAR(30) NOT NULL
+, Apellido1 VARCHAR(30) NOT NULL
+, Apellido2 VARCHAR(30)NOT NULL
+)
+
+CREATE TABLE Tipo_Rol(
+Id_Rol INT NOT NULL PRIMARY KEY
+,Descripcion VARCHAR(30)
+)
+
+CREATE TABLE Usuario(
+Nombre_Usuario Varchar(30) NOT NULL PRIMARY KEY
+, Contrasena Varchar(12) NOT NULL
+, Id_Rol INT NOT NULL FOREIGN KEY REFERENCES Tipo_Rol(Id_Rol)
+, Cedula INT FOREIGN KEY REFERENCES Empleado(Cedula)
+)
+
+CREATE TABLE Tipo_Tarea(
+Id_TTarea INT IDENTITY(1,1) NOT NULL PRIMARY KEY
+, Nombre_Tarea VARCHAR(50) NOT NULL
+, Descripcion VARCHAR(150) NOT NULL
+)
+
+CREATE TABLE Proyecto(
+Id_Proyecto INT IDENTITY(1,1) NOT NULL PRIMARY KEY
+, Descripcion VARCHAR(30) NOT NULL
+)
+
+CREATE TABLE Tarea(
+Id_Tarea INT IDENTITY(1,1) NOT NULL PRIMARY KEY
+, Fecha_Caducidad Date NOT NULL
+, Cedula INT FOREIGN KEY REFERENCES Empleado(Cedula)
+, Id_TTarea INT FOREIGN KEY REFERENCES Tipo_Tarea(Id_TTarea)
+, Id_Proyecto INT FOREIGN KEY REFERENCES Proyecto(Id_Proyecto)
+)
